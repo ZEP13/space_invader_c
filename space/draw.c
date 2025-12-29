@@ -1,0 +1,18 @@
+#include "draw.h"
+#include "raylib.h"
+
+int ship_pixels[7][7] = {{0, 0, 1, 1, 1, 0, 0}, {0, 1, 1, 1, 1, 1, 0},
+                         {1, 1, 0, 1, 0, 1, 1}, {1, 1, 1, 1, 1, 1, 1},
+                         {0, 0, 1, 1, 1, 0, 0}, {0, 0, 1, 0, 1, 0, 0},
+                         {0, 0, 1, 0, 1, 0, 0}};
+
+int enemy_pixels[3][3] = {{0, 1, 0}, {1, 1, 1}, {0, 1, 0}};
+
+void draw_pixels(Vector2 pos, int scale, Color color, int rows, int cols,
+                 int pixels[rows][cols]) {
+  for (int y = 0; y < rows; y++)
+    for (int x = 0; x < cols; x++)
+      if (pixels[y][x])
+        DrawRectangle(pos.x + x * scale, pos.y + y * scale, scale, scale,
+                      color);
+}
