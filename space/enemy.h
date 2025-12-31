@@ -13,6 +13,8 @@ typedef struct {
   float shootTimer;
   float baseX;
   float baseY;
+  int indexRow;
+  int killable;
 } Enemy;
 
 void init_enemies(Enemy enemies[]);

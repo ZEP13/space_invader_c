@@ -14,7 +14,7 @@ void handle_collisions(Bullet bullets[], Enemy enemies[], int *score) {
     Rectangle br = {bullets[b].position.x, bullets[b].position.y, 2, 8};
 
     for (int e = 0; e < MAX_ENEMIES; e++) {
-      if (!enemies[e].active)
+      if (!enemies[e].active || !enemies[e].killable)
         continue;
 
       Rectangle er = rect_from_pos(enemies[e].position, enemies[e].width,

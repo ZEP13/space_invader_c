@@ -20,6 +20,8 @@ void init_enemies(Enemy enemies[]) {
       enemies[index].speed = 1.5f;
       enemies[index].active = 1;
       enemies[index].phase = 0;
+      enemies[index].indexRow = row;
+      enemies[index].killable = 0;
 
       enemies[index].baseX =
           spacingX * col + spacingX / 2.0f - enemies[index].width / 2.0f;
@@ -36,20 +38,26 @@ void init_enemies(Enemy enemies[]) {
 
 void update_enemies(Enemy enemies[], Bullet bullets[], float *shootTimer) {
   static float globalPhase = 0.0f;
-
   globalPhase += 0.03f;
 
   *shootTimer += GetFrameTime();
+
+  int lastActiveRow = -1;
+  for (int i = 0; i < MAX_ENEMIES; i++) {
+    if (enemies[i].active && enemies[i].indexRow > lastActiveRow) {
+      lastActiveRow = enemies[i].indexRow;
+      enemies[i].killable = 1;
+    }
+  }
 
   for (int i = 0; i < MAX_ENEMIES; i++) {
     if (!enemies[i].active)
       continue;
 
     enemies[i].position.x = enemies[i].baseX + sinf(globalPhase) * 20.0f;
-
     enemies[i].position.y = enemies[i].baseY + enemies[i].speed * 0.02f;
 
-    if (*shootTimer > 1.2f) {
+    if (enemies[i].indexRow == lastActiveRow && *shootTimer > 1.2f) {
       spawn_bullet(bullets,
                    (Vector2){enemies[i].position.x + enemies[i].width / 2,
                              enemies[i].position.y + enemies[i].height},
