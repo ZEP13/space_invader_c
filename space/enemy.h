@@ -11,6 +11,8 @@ typedef struct {
   int active;
   float phase; // for movement pattern
   float shootTimer;
+  float baseX;
+  float baseY;
 } Enemy;
 
 void init_enemies(Enemy enemies[]);
