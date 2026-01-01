@@ -5,6 +5,7 @@
 #include "raylib.h"
 #include "ship.h"
 #include "utils.h"
+#include <stdio.h>
 
 void handle_collisions(Bullet bullets[], Enemy enemies[], int *score,
                        int lastActiveRow, GameState *game_state) {
@@ -35,6 +36,7 @@ void handle_collisions(Bullet bullets[], Enemy enemies[], int *score,
         }
         if (!anyActive) {
           *game_state = GAME_VICTORY;
+          save_best_score(*score);
         }
         break;
       }
@@ -43,7 +45,7 @@ void handle_collisions(Bullet bullets[], Enemy enemies[], int *score,
 }
 
 void handle_collisions_player(Bullet bullets[], Player *player,
-                              GameState *game_state) {
+                              GameState *game_state, int *score) {
   for (int b = 0; b < MAX_BULLETS; b++) {
     if (!bullets[b].active)
       continue;
@@ -58,8 +60,10 @@ void handle_collisions_player(Bullet bullets[], Player *player,
       if (CheckCollisionRecs(br, er)) {
         bullets[b].active = 0;
         player->player_lifes -= 1;
-        if (player->player_lifes == 0)
+        if (player->player_lifes == 0) {
           *game_state = GAME_OVER;
+          save_best_score(*score);
+        }
       }
     }
   }
@@ -82,4 +86,30 @@ void restart_game(Game *game) {
   for (int i = 0; i < MAX_BULLETS; i++) {
     game->bullets[i].active = 0;
   }
+}
+
+void save_best_score(int score) {
+
+  int last_best_score = load_best_score();
+  if (score >= last_best_score) {
+    FILE *file;
+    file = fopen("best_score.csv", "w");
+    if (!file)
+      printf("Could not open file for writing best score.\n");
+
+    fprintf(file, "%d", score);
+
+    fclose(file);
+  }
+}
+int load_best_score() {
+  FILE *file;
+  file = fopen("best_score.csv", "r");
+  if (!file)
+    printf("Could not open file for reading best score.\n");
+
+  int best_score;
+  fscanf(file, "%d", &best_score);
+  fclose(file);
+  return best_score;
 }
