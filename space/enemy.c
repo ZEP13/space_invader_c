@@ -74,12 +74,12 @@ void draw_enemies(Enemy enemies[]) {
     if (!enemies[i].active)
       continue;
     if (enemies[i].indexRow == 0)
-      draw_pixels(enemies[i].position, 6, RED, 3, 3, enemy_pixels_lvl4);
+      draw_pixels(enemies[i].position, 6, RED, 7, 7, enemy_pixels_lvl4);
     else if (enemies[i].indexRow == 1)
-      draw_pixels(enemies[i].position, 6, ORANGE, 3, 3, enemy_pixels_lvl3);
+      draw_pixels(enemies[i].position, 6, ORANGE, 7, 7, enemy_pixels_lvl3);
     else if (enemies[i].indexRow == 2)
-      draw_pixels(enemies[i].position, 6, YELLOW, 3, 3, enemy_pixels_lvl2);
+      draw_pixels(enemies[i].position, 6, YELLOW, 7, 7, enemy_pixels_lvl2);
     else
-      draw_pixels(enemies[i].position, 6, VIOLET, 3, 3, enemy_pixels);
+      draw_pixels(enemies[i].position, 6, VIOLET, 7, 7, enemy_pixels);
   }
 }
