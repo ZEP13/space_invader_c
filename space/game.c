@@ -7,7 +7,7 @@
 #include "utils.h"
 
 void handle_collisions(Bullet bullets[], Enemy enemies[], int *score,
-                       int lastActiveRow) {
+                       int lastActiveRow, GameState *game_state) {
   for (int b = 0; b < MAX_BULLETS; b++) {
     if (!bullets[b].active || bullets[b].type != PLAYER_BULLET)
       continue;
@@ -26,6 +26,16 @@ void handle_collisions(Bullet bullets[], Enemy enemies[], int *score,
         bullets[b].active = 0;
         enemies[e].active = 0;
         (*score) += enemies[e].killValue;
+        int anyActive = 0;
+        for (int i = 0; i < MAX_ENEMIES; i++) {
+          if (enemies[i].active) {
+            anyActive = 1;
+            break;
+          }
+        }
+        if (!anyActive) {
+          *game_state = GAME_VICTORY;
+        }
         break;
       }
     }

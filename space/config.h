@@ -1,14 +1,14 @@
 #ifndef CONFIG_H
 #define CONFIG_H
 
-typedef enum { GAME_PLAYING, GAME_OVER } GameState;
+typedef enum { GAME_PLAYING, GAME_OVER, GAME_VICTORY } GameState;
 
 #define SCREEN_WIDTH 1200
 #define SCREEN_HEIGHT 800
 
 #define MAX_BULLETS 64
-#define MAX_ENEMIES_ROWS 4
-#define MAX_ENEMIES_COLS 8
+#define MAX_ENEMIES_ROWS 1
+#define MAX_ENEMIES_COLS 1
 
 #define MAX_ENEMIES (MAX_ENEMIES_ROWS * MAX_ENEMIES_COLS)
 

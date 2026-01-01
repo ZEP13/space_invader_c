@@ -24,10 +24,10 @@ int main() {
 
       shoot_bullet(player, game.bullets);
       update_bullets(game.bullets);
-      update_enemies(game.enemies, game.bullets, &game.enemyShootTimer,
+      update_enemies(game.enemies, game.bullets, &game.enemies->shootTimer,
                      &game.lastActiveRow);
       handle_collisions(game.bullets, game.enemies, &game.score,
-                        game.lastActiveRow);
+                        game.lastActiveRow, &game.state);
       handle_collisions_player(game.bullets, &player, &game.state);
 
       BeginDrawing();
@@ -40,7 +40,22 @@ int main() {
       DrawText(TextFormat("Score: %d", game.score), 10, 10, 20, WHITE);
       DrawText(TextFormat("Lifes: %d", player.player_lifes), 10, 40, 20, WHITE);
     } else if (game.state == GAME_OVER) {
+      BeginDrawing();
+      ClearBackground(BLACK);
+
       DrawText("GAME OVER", 300, 200, 40, RED);
+      DrawText(TextFormat("Score: %d", game.score), 320, 260, 20, WHITE);
+      DrawText("Press ENTER to restart", 250, 320, 20, GRAY);
+
+      if (IsKeyPressed(KEY_ENTER)) {
+        restart_game(&game);
+      }
+
+    } else if (game.state == GAME_VICTORY) {
+      BeginDrawing();
+      ClearBackground(BLACK);
+
+      DrawText("YOU WIN!", 300, 200, 40, GREEN);
       DrawText(TextFormat("Score: %d", game.score), 320, 260, 20, WHITE);
       DrawText("Press ENTER to restart", 250, 320, 20, GRAY);
 
