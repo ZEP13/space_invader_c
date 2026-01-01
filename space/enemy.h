@@ -9,16 +9,17 @@ typedef struct {
   float speed;
   int width, height;
   int active;
-  float phase; // for movement pattern
+  float phase;
   float shootTimer;
   float baseX;
   float baseY;
   int indexRow;
-  int killable;
+  int killValue;
 } Enemy;
 
 void init_enemies(Enemy enemies[]);
-void update_enemies(Enemy enemies[], Bullet bullets[], float *shootTimer);
+void update_enemies(Enemy enemies[], Bullet bullets[], float *shootTimer,
+                    int *lastActiveRow);
 void draw_enemies(Enemy enemies[]);
 
 #endif

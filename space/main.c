@@ -24,8 +24,10 @@ int main() {
 
       shoot_bullet(player, game.bullets);
       update_bullets(game.bullets);
-      update_enemies(game.enemies, game.bullets, &game.enemies->shootTimer);
-      handle_collisions(game.bullets, game.enemies, &game.score);
+      update_enemies(game.enemies, game.bullets, &game.enemyShootTimer,
+                     &game.lastActiveRow);
+      handle_collisions(game.bullets, game.enemies, &game.score,
+                        game.lastActiveRow);
       handle_collisions_player(game.bullets, &player, &game.state);
 
       BeginDrawing();

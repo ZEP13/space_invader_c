@@ -14,9 +14,11 @@ typedef struct {
   int score;
   float enemyShootTimer;
   GameState state;
+  int lastActiveRow;
 } Game;
 
-void handle_collisions(Bullet bullets[], Enemy enemies[], int *score);
+void handle_collisions(Bullet bullets[], Enemy enemies[], int *score,
+                       int lastActiveRow);
 void handle_collisions_player(Bullet bullets[], Player *player,
                               GameState *game_state);
 

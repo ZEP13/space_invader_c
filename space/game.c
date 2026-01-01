@@ -6,15 +6,17 @@
 #include "ship.h"
 #include "utils.h"
 
-void handle_collisions(Bullet bullets[], Enemy enemies[], int *score) {
+void handle_collisions(Bullet bullets[], Enemy enemies[], int *score,
+                       int lastActiveRow) {
   for (int b = 0; b < MAX_BULLETS; b++) {
     if (!bullets[b].active || bullets[b].type != PLAYER_BULLET)
       continue;
 
-    Rectangle br = {bullets[b].position.x, bullets[b].position.y, 2, 8};
+    Rectangle br = {bullets[b].position.x, bullets[b].position.y,
+                    bullets[b].size, bullets[b].size * 2};
 
     for (int e = 0; e < MAX_ENEMIES; e++) {
-      if (!enemies[e].active || !enemies[e].killable)
+      if (!enemies[e].active || enemies[e].indexRow != lastActiveRow)
         continue;
 
       Rectangle er = rect_from_pos(enemies[e].position, enemies[e].width,
@@ -23,7 +25,7 @@ void handle_collisions(Bullet bullets[], Enemy enemies[], int *score) {
       if (CheckCollisionRecs(br, er)) {
         bullets[b].active = 0;
         enemies[e].active = 0;
-        (*score) += 100;
+        (*score) += enemies[e].killValue;
         break;
       }
     }
@@ -36,7 +38,8 @@ void handle_collisions_player(Bullet bullets[], Player *player,
     if (!bullets[b].active)
       continue;
 
-    Rectangle br = {bullets[b].position.x, bullets[b].position.y, 2, 8};
+    Rectangle br = {bullets[b].position.x, bullets[b].position.y,
+                    bullets[b].size, bullets[b].size * 2};
 
     if (bullets[b].active && bullets[b].type == ENEMY_BULLET) {
       Rectangle er =
