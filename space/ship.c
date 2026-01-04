@@ -22,9 +22,9 @@ void deplacer_vaisseau(Vector2 *pos, float speed, int ship_width,
 void player_init(Player *player) {
   *player = (Player){.position = {SCREEN_WIDTH / 2, SCREEN_HEIGHT - 60},
                      .speed = 4,
-                     .width = 21,
-                     .height = 21,
-                     .player_lifes = 3};
+                     .width = 33,
+                     .height = 33,
+                     .player_lifes = PLAYER_LIFES};
 }
 
 void shoot_bullet(Player player, Bullet *bullet) {
@@ -32,6 +32,6 @@ void shoot_bullet(Player player, Bullet *bullet) {
     spawn_bullet(
         bullet,
         (Vector2){player.position.x + player.width / 2, player.position.y},
-        PLAYER_BULLET);
+        PLAYER_BULLET, PLAYER_BULLET_SPEED);
   }
 }

@@ -14,6 +14,7 @@ typedef struct {
   float baseX;
   float baseY;
   int indexRow;
+  int indexCol;
   int killValue;
 } Enemy;
 

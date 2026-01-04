@@ -1,4 +1,3 @@
-
 #include "bullet.h"
 #include "config.h"
 #include "draw.h"
@@ -9,7 +8,7 @@
 
 int main() {
   InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "Space Invaders");
-  SetTargetFPS(60);
+  SetTargetFPS(FPS);
 
   Game game;
 
@@ -53,10 +52,13 @@ int main() {
       BeginDrawing();
       ClearBackground(BLACK);
 
-      DrawText("GAME OVER", 300, 200, 40, RED);
-      DrawText(TextFormat("Score: %d", game.score), 320, 260, 20, WHITE);
-      DrawText(TextFormat("Best Score: %d", best_score), 320, 280, 20, WHITE);
-      DrawText("Press ENTER to restart", 250, 320, 20, GRAY);
+      DrawText("GAME OVER", CENTER_X - 100, CENTER_Y - 120, 40, RED);
+      DrawText(TextFormat("Score: %d", game.score), CENTER_X - 100,
+               CENTER_Y - 80, 20, WHITE);
+      DrawText(TextFormat("Best Score: %d", best_score), CENTER_X - 100,
+               CENTER_Y - 60, 20, WHITE);
+      DrawText("Press ENTER to restart", CENTER_X - 100, CENTER_Y + 30, 20,
+               GRAY);
 
       if (IsKeyPressed(KEY_ENTER)) {
         restart_game(&game);
@@ -71,10 +73,13 @@ int main() {
       BeginDrawing();
       ClearBackground(BLACK);
 
-      DrawText("YOU WIN!", 300, 200, 40, GREEN);
-      DrawText(TextFormat("Score: %d", game.score), 320, 260, 20, WHITE);
-      DrawText(TextFormat("Best Score: %d", best_score), 320, 280, 20, WHITE);
-      DrawText("Press ENTER to restart", 250, 320, 20, GRAY);
+      DrawText("YOU WIN!", CENTER_X - 100, CENTER_Y - 120, 40, GREEN);
+      DrawText(TextFormat("Score: %d", game.score), CENTER_X - 100,
+               CENTER_Y - 80, 20, WHITE);
+      DrawText(TextFormat("Best Score: %d", best_score), CENTER_X - 100,
+               CENTER_Y - 60, 20, WHITE);
+      DrawText("Press ENTER to restart", CENTER_X - 100, CENTER_Y + 30, 20,
+               GRAY);
 
       if (IsKeyPressed(KEY_ENTER)) {
         restart_game(&game);

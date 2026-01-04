@@ -1,6 +1,7 @@
 #ifndef BULLET_H
 #define BULLET_H
 
+#include "config.h"
 #include "raylib.h"
 
 typedef struct {
@@ -12,8 +13,10 @@ typedef struct {
 } Bullet;
 
 /* declarations ONLY */
-void spawn_bullet(Bullet bullets[], Vector2 pos, int type);
+void spawn_bullet(Bullet bullets[], Vector2 pos, int type, int speed);
 void update_bullets(Bullet bullets[]);
 void draw_bullets(Bullet bullets[]);
 
+static const int ENEMY_BULLET_SPEED_BY_ROW[MAX_ENEMIES_ROWS] = {600, 450, 300,
+                                                                180};
 #endif

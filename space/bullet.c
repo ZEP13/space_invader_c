@@ -2,11 +2,14 @@
 #include "config.h"
 #include "raylib.h"
 
-void spawn_bullet(Bullet bullets[], Vector2 pos, int type) {
+void spawn_bullet(Bullet bullets[], Vector2 pos, int type, int speed) {
   for (int i = 0; i < MAX_BULLETS; i++) {
     if (!bullets[i].active) {
-      bullets[i] = (Bullet){
-          .position = pos, .speed = 6, .size = 4, .active = 1, .type = type};
+      bullets[i] = (Bullet){.position = pos,
+                            .speed = speed,
+                            .size = 4,
+                            .active = 1,
+                            .type = type};
       break;
     }
   }
@@ -17,8 +20,8 @@ void update_bullets(Bullet bullets[]) {
     if (!bullets[i].active)
       continue;
 
-    bullets[i].position.y +=
-        (bullets[i].type == PLAYER_BULLET ? -1 : 1) * bullets[i].speed;
+    bullets[i].position.y += (bullets[i].type == PLAYER_BULLET ? -1 : 1) *
+                             bullets[i].speed * GetFrameTime();
 
     if (bullets[i].position.y < 0 || bullets[i].position.y > SCREEN_HEIGHT)
       bullets[i].active = 0;

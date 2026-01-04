@@ -3,6 +3,7 @@
 #include "config.h"
 #include "draw.h"
 #include "raylib.h"
+#include "utils.h"
 #include <math.h>
 
 void init_enemies(Enemy enemies[]) {
@@ -15,12 +16,13 @@ void init_enemies(Enemy enemies[]) {
       if (index >= MAX_ENEMIES)
         break;
 
-      enemies[index].width = 18;
-      enemies[index].height = 18;
+      enemies[index].width = 42;
+      enemies[index].height = 42;
       enemies[index].speed = 1.5f;
       enemies[index].active = 1;
       enemies[index].phase = 0;
       enemies[index].indexRow = row;
+      enemies[index].indexCol = col;
       enemies[index].killValue = (MAX_ENEMIES_ROWS - row) * 10;
 
       enemies[index].baseX =
@@ -57,15 +59,21 @@ void update_enemies(Enemy enemies[], Bullet bullets[], float *shootTimer,
     enemies[i].position.x = enemies[i].baseX + sinf(globalPhase) * 20.0f;
     enemies[i].position.y = enemies[i].baseY + enemies[i].speed * 0.02f;
 
-    if (enemies[i].indexRow == *lastActiveRow && *shootTimer > 1.2f) {
-      spawn_bullet(bullets,
-                   (Vector2){enemies[i].position.x + enemies[i].width / 2,
-                             enemies[i].position.y + enemies[i].height},
-                   ENEMY_BULLET);
+    int speed_enemy_bullet = ENEMY_BULLET_SPEED_BY_ROW[enemies[i].indexRow];
+
+    if (!enemy_below_alive(enemies, enemies[i].indexRow, enemies[i].indexCol) &&
+        *shootTimer > ENEMY_BULLET_COOLDOWN) {
+
+      int randomShoot = GetRandomValue(0, 1000);
+      if (randomShoot < 850)
+        spawn_bullet(bullets,
+                     (Vector2){enemies[i].position.x + enemies[i].width / 2,
+                               enemies[i].position.y + enemies[i].height},
+                     ENEMY_BULLET, speed_enemy_bullet);
     }
   }
 
-  if (*shootTimer > 1.2f)
+  if (*shootTimer > ENEMY_BULLET_COOLDOWN)
     *shootTimer = 0;
 }
 
