@@ -69,6 +69,38 @@ void handle_collisions_player(Bullet bullets[], Player *player,
   }
 }
 
+void handle_protection_collision(Bullet bullets[], Protection protections[]) {
+  for (int i = 0; i < MAX_PROTECTION; i++) {
+    if (protections[i].life <= 0)
+      continue;
+
+    Rectangle pr = rect_from_pos(protections[i].position, protections[i].width,
+                                 protections[i].height);
+
+    for (int j = 0; j < MAX_BULLETS; j++) {
+      if (!bullets[j].active)
+        continue;
+
+      Rectangle br = {bullets[j].position.x, bullets[j].position.y,
+                      bullets[j].size, bullets[j].size * 2};
+
+      if (CheckCollisionRecs(br, pr)) {
+        if (bullets[j].type == PLAYER_BULLET) {
+          bullets[j].active = 0;
+          continue;
+        }
+        bullets[j].active = 0;
+        protections[i].life--;
+
+        if (protections[i].life < 0)
+          protections[i].life = 0;
+
+        break;
+      }
+    }
+  }
+}
+
 void enemy_arrive_to_ship(Enemy enemies[], Player player,
                           GameState *game_state) {
   for (int i = 0; i < MAX_ENEMIES; i++) {

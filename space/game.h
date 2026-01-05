@@ -4,6 +4,7 @@
 #include "bullet.h"
 #include "config.h"
 #include "enemy.h"
+#include "protection.h"
 #include "raylib.h"
 #include "ship.h"
 
@@ -12,6 +13,7 @@ typedef struct {
   Enemy enemies[MAX_ENEMIES];
   Bullet bullets[MAX_BULLETS];
   GameState state;
+  Protection protections[MAX_PROTECTION];
   int score;
   float enemyShootTimer;
   int lastActiveRow;
@@ -23,8 +25,11 @@ void handle_collisions(Bullet bullets[], Enemy enemies[], int *score,
 void handle_collisions_player(Bullet bullets[], Player *player,
                               GameState *game_state, int *score);
 
+void handle_protection_collision(Bullet *bullet, Protection protections[]);
+
 void enemy_arrive_to_ship(Enemy enemies[], Player player,
                           GameState *game_state);
+
 void save_best_score(int score);
 int load_best_score();
 void restart_game(Game *game);

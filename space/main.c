@@ -3,9 +3,9 @@
 #include "draw.h"
 #include "enemy.h"
 #include "game.h"
+#include "protection.h"
 #include "raylib.h"
 #include "ship.h"
-#include "utils.h"
 
 int main() {
   InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "Space Invaders");
@@ -15,6 +15,7 @@ int main() {
 
   restart_game(&game);
   init_enemies(game.enemies);
+  init_protection(game.protections);
   player_init(&game.player);
 
   while (!WindowShouldClose()) {
@@ -26,6 +27,7 @@ int main() {
 
       enemy_arrive_to_ship(game.enemies, game.player, &game.state);
 
+      draw_protection(game.protections);
       shoot_bullet(game.player, game.bullets);
       update_bullets(game.bullets);
 
@@ -36,6 +38,8 @@ int main() {
                         game.lastActiveRow, &game.state);
       handle_collisions_player(game.bullets, &game.player, &game.state,
                                &game.score);
+
+      handle_protection_collision(game.bullets, game.protections);
       BeginDrawing();
       ClearBackground(BLACK);
 

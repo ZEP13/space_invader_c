@@ -56,7 +56,7 @@ void update_enemies(Enemy enemies[], Bullet bullets[], float *shootTimer,
   for (int i = 0; i < MAX_ENEMIES; i++) {
     if (!enemies[i].active)
       continue;
-    enemies[i].position.x = enemies[i].baseX + sinf(globalPhase) * 20.0f;
+    enemies[i].position.x = enemies[i].baseX + sinf(globalPhase) * 25.0f;
 
     enemies[i].baseY += enemies[i].speed * GetFrameTime();
     enemies[i].position.y = enemies[i].baseY;
@@ -66,8 +66,8 @@ void update_enemies(Enemy enemies[], Bullet bullets[], float *shootTimer,
     if (!enemy_below_alive(enemies, enemies[i].indexRow, enemies[i].indexCol) &&
         *shootTimer > ENEMY_BULLET_COOLDOWN) {
 
-      int randomShoot = GetRandomValue(0, 1000);
-      if (randomShoot < 850)
+      int randomShoot = GetRandomValue(0, 100);
+      if (randomShoot < 85)
         spawn_bullet(bullets,
                      (Vector2){enemies[i].position.x + enemies[i].width / 2,
                                enemies[i].position.y + enemies[i].height},
