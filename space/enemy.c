@@ -57,7 +57,9 @@ void update_enemies(Enemy enemies[], Bullet bullets[], float *shootTimer,
     if (!enemies[i].active)
       continue;
     enemies[i].position.x = enemies[i].baseX + sinf(globalPhase) * 20.0f;
-    enemies[i].position.y = enemies[i].baseY + enemies[i].speed * 0.02f;
+
+    enemies[i].baseY += enemies[i].speed * GetFrameTime();
+    enemies[i].position.y = enemies[i].baseY;
 
     int speed_enemy_bullet = ENEMY_BULLET_SPEED_BY_ROW[enemies[i].indexRow];
 
@@ -82,12 +84,12 @@ void draw_enemies(Enemy enemies[]) {
     if (!enemies[i].active)
       continue;
     if (enemies[i].indexRow == 0)
-      draw_pixels(enemies[i].position, 6, RED, 7, 7, enemy_pixels_lvl4);
+      draw_pixels(enemies[i].position, 7, RED, 7, 7, enemy_pixels_lvl4);
     else if (enemies[i].indexRow == 1)
-      draw_pixels(enemies[i].position, 6, ORANGE, 7, 7, enemy_pixels_lvl3);
+      draw_pixels(enemies[i].position, 3, ORANGE, 7, 7, enemy_pixels_lvl3);
     else if (enemies[i].indexRow == 2)
-      draw_pixels(enemies[i].position, 6, YELLOW, 7, 7, enemy_pixels_lvl2);
+      draw_pixels(enemies[i].position, 5, YELLOW, 7, 7, enemy_pixels_lvl2);
     else
-      draw_pixels(enemies[i].position, 6, VIOLET, 7, 7, enemy_pixels);
+      draw_pixels(enemies[i].position, 4, VIOLET, 7, 7, enemy_pixels);
   }
 }

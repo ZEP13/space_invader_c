@@ -23,6 +23,8 @@ void handle_collisions(Bullet bullets[], Enemy enemies[], int *score,
 void handle_collisions_player(Bullet bullets[], Player *player,
                               GameState *game_state, int *score);
 
+void enemy_arrive_to_ship(Enemy enemies[], Player player,
+                          GameState *game_state);
 void save_best_score(int score);
 int load_best_score();
 void restart_game(Game *game);

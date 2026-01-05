@@ -5,6 +5,7 @@
 #include "game.h"
 #include "raylib.h"
 #include "ship.h"
+#include "utils.h"
 
 int main() {
   InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "Space Invaders");
@@ -22,6 +23,8 @@ int main() {
       deplacer_vaisseau(&game.player.position, game.player.speed,
                         game.player.width, game.player.height, SCREEN_WIDTH,
                         SCREEN_HEIGHT);
+
+      enemy_arrive_to_ship(game.enemies, game.player, &game.state);
 
       shoot_bullet(game.player, game.bullets);
       update_bullets(game.bullets);

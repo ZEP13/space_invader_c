@@ -69,6 +69,22 @@ void handle_collisions_player(Bullet bullets[], Player *player,
   }
 }
 
+void enemy_arrive_to_ship(Enemy enemies[], Player player,
+                          GameState *game_state) {
+  for (int i = 0; i < MAX_ENEMIES; i++) {
+    if (!enemies[i].active)
+      continue;
+
+    float enemyBottom = enemies[i].position.y + enemies[i].height;
+    float playerTop = player.position.y;
+
+    if (enemyBottom >= playerTop) {
+      *game_state = GAME_OVER;
+      return;
+    }
+  }
+}
+
 void restart_game(Game *game) {
   game->score = 0;
   game->enemyShootTimer = 0.0f;
@@ -77,11 +93,7 @@ void restart_game(Game *game) {
   game->player.position = (Vector2){(SCREEN_WIDTH - game->player.width) / 2,
                                     SCREEN_HEIGHT - game->player.height - 10};
 
-  for (int i = 0; i < MAX_ENEMIES; i++) {
-    game->enemies[i].active = 1;
-    game->enemies[i].position = (Vector2){100 + i * 100, 40};
-    game->enemies[i].phase = i;
-  }
+  init_enemies(game->enemies);
 
   for (int i = 0; i < MAX_BULLETS; i++) {
     game->bullets[i].active = 0;

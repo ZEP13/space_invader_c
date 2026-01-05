@@ -3,7 +3,7 @@
 
 typedef enum { GAME_PLAYING, GAME_OVER, GAME_VICTORY } GameState;
 
-#define SCREEN_WIDTH 1200
+#define SCREEN_WIDTH 1400
 #define SCREEN_HEIGHT 800
 
 #define MAX_BULLETS 64
