@@ -18,5 +18,5 @@ void update_bullets(Bullet bullets[]);
 void draw_bullets(Bullet bullets[]);
 
 static const int ENEMY_BULLET_SPEED_BY_ROW[MAX_ENEMIES_ROWS] = {600, 450, 300,
-                                                                180};
+                                                                180, 120};
 #endif

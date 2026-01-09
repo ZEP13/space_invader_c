@@ -27,7 +27,6 @@ int main() {
 
       enemy_arrive_to_ship(game.enemies, game.player, &game.state);
 
-      draw_protection(game.protections);
       shoot_bullet(game.player, game.bullets);
       update_bullets(game.bullets);
 
@@ -46,6 +45,7 @@ int main() {
       draw_pixels(game.player.position, 3, BLUE, 11, 11, ship_pixels);
       draw_enemies(game.enemies);
       draw_bullets(game.bullets);
+      draw_protection(game.protections);
 
       DrawText(TextFormat("Score: %d", game.score), 10, 10, 20, WHITE);
       DrawText(TextFormat("Lifes: %d", game.player.player_lifes), 10, 40, 20,

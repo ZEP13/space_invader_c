@@ -8,8 +8,8 @@ void init_protection(Protection protection[]) {
   float baseY = SCREEN_HEIGHT * 0.75f;
 
   for (int i = 0; i < MAX_PROTECTION; i++) {
-    protection[i].width = 21;
-    protection[i].height = 9;
+    protection[i].width = PROTECTION_COL * PROTECTION_SCALE;
+    protection[i].height = PROTECTION_ROW * PROTECTION_SCALE;
     protection[i].life = PROTECTION_LIFE;
 
     protection[i].position =
@@ -22,14 +22,8 @@ void draw_protection(Protection protection[]) {
     if (protection[i].life == 0)
       continue;
 
-    for (int j = 0; j < PROTECTION_LIFE; j++) {
-      draw_pixels(protection[i].position, 6, BLUE, 3, 7, protection_shape[j]);
-      if (protection[i].life - 1 == j)
-        break;
-    }
+    int index = PROTECTION_LIFE - protection[i].life;
+    draw_pixels(protection[i].position, PROTECTION_SCALE, BLUE, PROTECTION_ROW,
+                PROTECTION_ROW, protection_shape[index]);
   }
-}
-
-void update_protection(Protection protection[]) {
-  // Currently no dynamic behavior for protections
 }

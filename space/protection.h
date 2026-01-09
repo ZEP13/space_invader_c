@@ -1,6 +1,7 @@
 #ifndef PROTECTION_H
 #define PROTECTION_H
 
+#include "config.h"
 #include <raylib.h>
 
 typedef struct {

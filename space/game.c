@@ -13,8 +13,9 @@ void handle_collisions(Bullet bullets[], Enemy enemies[], int *score,
     if (!bullets[b].active || bullets[b].type != PLAYER_BULLET)
       continue;
 
-    Rectangle br = {bullets[b].position.x, bullets[b].position.y,
-                    bullets[b].size, bullets[b].size * 2};
+    Rectangle br = {bullets[b].position.x - bullets[b].size / 2,
+                    bullets[b].position.y, bullets[b].size,
+                    bullets[b].size * 2};
 
     for (int e = 0; e < MAX_ENEMIES; e++) {
       if (!enemies[e].active || enemies[e].indexRow != lastActiveRow)
@@ -50,8 +51,9 @@ void handle_collisions_player(Bullet bullets[], Player *player,
     if (!bullets[b].active)
       continue;
 
-    Rectangle br = {bullets[b].position.x, bullets[b].position.y,
-                    bullets[b].size, bullets[b].size * 2};
+    Rectangle br = {bullets[b].position.x - bullets[b].size / 2,
+                    bullets[b].position.y, bullets[b].size,
+                    bullets[b].size * 2};
 
     if (bullets[b].active && bullets[b].type == ENEMY_BULLET) {
       Rectangle er =
@@ -81,20 +83,17 @@ void handle_protection_collision(Bullet bullets[], Protection protections[]) {
       if (!bullets[j].active)
         continue;
 
-      Rectangle br = {bullets[j].position.x, bullets[j].position.y,
-                      bullets[j].size, bullets[j].size * 2};
+      Rectangle br = {bullets[j].position.x - bullets[j].size / 2,
+                      bullets[j].position.y, bullets[j].size,
+                      bullets[j].size * 2};
 
-      if (CheckCollisionRecs(br, pr)) {
-        if (bullets[j].type == PLAYER_BULLET) {
-          bullets[j].active = 0;
-          continue;
-        }
+      if (CheckCollisionRecs(pr, br)) {
         bullets[j].active = 0;
-        protections[i].life--;
-
-        if (protections[i].life < 0)
-          protections[i].life = 0;
-
+        if (bullets[j].type != PLAYER_BULLET) {
+          protections[i].life--;
+          if (protections[i].life < 0)
+            protections[i].life = 0;
+        }
         break;
       }
     }
@@ -146,6 +145,7 @@ void save_best_score(int score) {
     fclose(file);
   }
 }
+
 int load_best_score() {
   FILE *file;
   file = fopen("best_score.csv", "r");

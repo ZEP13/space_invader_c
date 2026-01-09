@@ -31,7 +31,7 @@ void shoot_bullet(Player player, Bullet *bullet) {
   if (IsKeyPressed(KEY_SPACE)) {
     spawn_bullet(
         bullet,
-        (Vector2){player.position.x + player.width / 2, player.position.y},
+        (Vector2){player.position.x - 4 + player.width / 2, player.position.y},
         PLAYER_BULLET, PLAYER_BULLET_SPEED);
   }
 }
