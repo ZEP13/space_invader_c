@@ -42,7 +42,8 @@ int main() {
       BeginDrawing();
       ClearBackground(BLACK);
 
-      draw_pixels(game.player.position, 3, BLUE, 11, 11, ship_pixels);
+      draw_pixels(game.player.position, SHIP_SCALE, BLUE, SHIP_MATRIX_ROW,
+                  SHIP_MATRIX_COL, ship_pixels);
       draw_enemies(game.enemies);
       draw_bullets(game.bullets);
       draw_protection(game.protections);

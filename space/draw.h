@@ -4,7 +4,7 @@
 #include "config.h"
 #include "raylib.h"
 
-extern int ship_pixels[11][11];
+extern int ship_pixels[SHIP_MATRIX_ROW][SHIP_MATRIX_COL];
 extern int enemy_pixels[7][7];
 extern int enemy_pixels_lvl2[7][7];
 extern int enemy_pixels_lvl3[7][7];

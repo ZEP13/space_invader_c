@@ -12,6 +12,5 @@ typedef struct {
 
 void init_protection(Protection protection[]);
 void draw_protection(Protection protection[]);
-void update_protection(Protection protection[]);
 
 #endif

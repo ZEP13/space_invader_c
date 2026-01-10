@@ -2,6 +2,7 @@
 #include "bullet.h"
 #include "config.h"
 #include "enemy.h"
+#include "protection.h"
 #include "raylib.h"
 #include "ship.h"
 #include "utils.h"
@@ -123,7 +124,7 @@ void restart_game(Game *game) {
   game->player.player_lifes = 3;
   game->player.position = (Vector2){(SCREEN_WIDTH - game->player.width) / 2,
                                     SCREEN_HEIGHT - game->player.height - 10};
-
+  init_protection(game->protections);
   init_enemies(game->enemies);
 
   for (int i = 0; i < MAX_BULLETS; i++) {

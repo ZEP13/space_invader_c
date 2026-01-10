@@ -8,6 +8,7 @@ void init_protection(Protection protection[]) {
   float baseY = SCREEN_HEIGHT * 0.75f;
 
   for (int i = 0; i < MAX_PROTECTION; i++) {
+    protection[i] = (Protection){0};
     protection[i].width = PROTECTION_COL * PROTECTION_SCALE;
     protection[i].height = PROTECTION_ROW * PROTECTION_SCALE;
     protection[i].life = PROTECTION_LIFE;

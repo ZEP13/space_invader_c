@@ -8,7 +8,7 @@
 
 void init_enemies(Enemy enemies[]) {
   float spacingX = SCREEN_WIDTH / (float)MAX_ENEMIES_COLS;
-  float spacingY = (SCREEN_HEIGHT * 0.66f) / (float)MAX_ENEMIES_ROWS;
+  float spacingY = (SCREEN_HEIGHT * 0.50f) / (float)MAX_ENEMIES_ROWS;
 
   int index = 0;
   for (int row = 0; row < MAX_ENEMIES_ROWS; row++) {
